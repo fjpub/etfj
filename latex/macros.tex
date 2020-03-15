@@ -1,0 +1,177 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					Início dos comandos personalizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{dkblue}{rgb}{0,0.1,0.5}
+%\definecolor{dkgreen}{HTML}{008B00}
+%\definecolor{dkred}{rgb}{0.6,0,0}
+%\definecolor{dkgray}{HTML}{150517}
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\green}[1]{\textcolor{dkgreen}{#1}}
+%\newcommand{\textoverline}[1]{$\overline{\mbox{#1}}$}
+
+%\newcommand\Inn{%
+%  \mathrel{\ooalign{$\subset$\cr\hfil\scalebox{0.8}[1]{$=$}\hfil\cr}}%
+%}
+
+\newcommand\Inn{\in\hspace{-1ex}\in}
+
+\makeatletter
+\newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
+\makeatother
+
+%\newtheorem{thm}{Theorem}
+%\newtheorem{lem}[thm]{Lemma}
+%\newproof{pf}{Proof}
+
+% Change enumerate env to number items with bracketed Arabic numerals in \rm
+\def\labelenumi{{\rm(\arabic{enumi})}}
+
+\makeatletter
+\newcommand{\addToLabel}[1]{%
+	\protected@edef\@currentlabel{\@currentlabel#1}%
+}
+\makeatother
+
+\newcommand{\hbra}{
+	\hbox to \columnwidth{\leaders\hrule height1.8mm depth-1.5mm\hfill }}
+\newcommand{\hket}{
+	\hbox to \columnwidth{\leaders\hrule height0.3mm\hfill }}
+		
+\newcommand{\ratio}{.35}
+
+\newenvironment{display}[2][\ratio]{\vspace{-0.5ex}
+	\begin{tabbing}
+		\hspace{1.5em} \= \hspace{#1\columnwidth-1.5em} \= \hspace{1.5em} \= \kill
+		\textbf{#2}\\[-.8ex]
+		\hbra\\[-.8ex]
+		}{\\[-1ex]\hket
+	\end{tabbing}\vspace{-2ex}}
+
+\newenvironment{sintax}[2][\ratio]
+{\vspace{-0.5ex} \setlength{\baselineskip}{0.8\baselineskip}
+	\begin{tabbing}
+		\hspace{1.5em} \= \hspace{#1\columnwidth-1.5em} \= \hspace{1.5em} \= \kill
+		%    \textbf{#2}\\[-.8ex]
+		\hbra\\[-.8ex]
+		}{\\[-.8ex]
+		\hket\par
+	\end{tabbing}\vspace{-1ex}}
+
+\newenvironment{displayVerySmall}[2][\ratio]{\vspace{-0.5ex}\footnotesize%\scriptsize
+	\begin{tabbing}
+		\hspace{1.5em} \= \hspace{#1\columnwidth-1.5em} \= \hspace{1.5em} \= \kill
+		%    \textbf{#2}\\[-.1ex]
+		\hbra\\[-.8ex]
+		}{\\[-.8ex]\hket
+	\end{tabbing}\vspace{-1ex}}
+
+\newenvironment{sintaxEx}[2][\ratio]
+{\vspace{-0.5ex} \setlength{\baselineskip}{0.8\baselineskip}
+	\begin{tabbing}
+		\hspace{1.5em} \= \hspace{#1\columnwidth-1.5em} \= \hspace{1.5em} \= \kill
+		%  \hrule \\[-.8ex]
+		}{\\[-.8ex]
+		\par
+	\end{tabbing}\vspace{-1ex}}
+
+\newenvironment{sintaxEx2}[2][\ratio]
+{\vspace{-0.5ex} \setlength{\baselineskip}{0.8\baselineskip}
+	\begin{tabbing}
+		\hspace{1.0em} \= \hspace{#1\columnwidth-1.5em} \= \hspace{1.5em} \= \hspace{1.5em} \= \hspace{2em} \=  \kill
+		%   \textbf{#2}\\[-.8ex]
+		\hbra\\[-.8ex]
+		}{\\[-.8ex]
+		\hket\par
+	\end{tabbing}\vspace{-1ex}}	
+
+\newcommand{\entry}[2]{\>$#1$\>\>#2}
+\newcommand{\clause}[2]{$#1$\>\>#2}
+\newcommand{\category}[2]{\clause{#1::=}{#2}}
+\newcommand{\subclause}[1]{\>\>\>#1}
+\newcommand{\redrule}[3]{\quad $#1$\>\>$#2$\>\>\>$#3$}
+\newcommand{\labelledClause}[2]{%
+	$#1$%
+	\>\>(#2)%
+	\refstepcounter{rule}%
+	% \addToLabel{(#2)}\label{#2}%
+}
+\newcommand{\labelledItem}[1]{#1\refstepcounter{rule}%
+	\addToLabel{#1}}
+  
+\newenvironment{prog}{\begin{array}[t]{@{}l@{}}}{\end{array}}		
+
+\newcounter{rule}
+\renewcommand{\therule}{}
+
+\newcommand{\staterule}[4][]{%
+	\refstepcounter{rule}%
+	\addToLabel{(#2)}%\label{#2}%
+	$\begin{array}[b]{@{}l@{}}%
+		\mbox{(#2)#1}                      \\%
+		\begin{array}{@{}c@{}}             
+		#3                                 \\
+		\hline                             
+		\raisebox{0ex}[2.5ex]{\strut}#4% 
+	\end{array}
+	\end{array}$}
+	
+\newenvironment{displayAmbient}[1]{
+	%  \newline \newline \indent
+	%  \begin{minipage}[b]{1\linewidth}
+	\center #1 \newline
+	%   \\
+	% \end{minipage}
+}
+
+\newenvironment{displayAmbient2}[1]{
+	#1 \newline
+}
+
+\newcommand{\ambient}[2]{
+	\begin{minipage}[b]{1\linewidth}
+		\small
+		\begin{array}[b]{@{}l@{}}%
+			\mbox{\textit{#1}}     \\%
+			\begin{array}{@{}c@{}} 
+			\fboxsep=6pt           
+			\fbox{$\;#2\;$}        
+		\end{array}
+		\end{array}
+	\end{minipage}
+}
+
+\newcommand{\grau}{\ensuremath{\,^{\circ}}}
+\newcommand{\GSeta}{^{\curvearrowright}\textbf{G}}
+\newcommand{\brackets}[1]{\langle #1 \rangle}
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\subscript}[1]{\ensuremath{_{\textrm{#1}}}}
+\newcommand{\starlocal}{\subscript{\ding{72}}}
+\newcommand{\tpCCA}[1]{\textcolor{dkblue}{\textbf{\textit{#1}}}}
+\newcommand{\tpeCCA}[1]{\textcolor{dkgreen}{\ensuremath{#1}}}
+\newcommand{\typeWxW}{\ensuremath{W_{1} \text{$\times \ldots \times$} W_{k}}}
+%\newcommand{\typeWxWAbr}{\ensuremath{\tilde{W}\times}}
+\newcommand{\typeWxWAbr}{\ensuremath{\tilde{W}}}
+\newcommand{\typenW}{\ensuremath{n_{1}\text{:}\tpeCCA{W_{1}},\ \ldots \ ,n_{k}\text{:}\tpeCCA{W_{k}}}}
+\newcommand{\typenWAbr}{\ensuremath{\tilde{n}\text{:}\tpeCCA{\tilde{W}}}}
+\newcommand{\procSubs}{\ensuremath{P\{ \tilde{y} \leftarrow \tilde{z} \}}}
+\newcommand{\procSubsLine}{\ensuremath{P^{'}\{ \tilde{y} \leftarrow \tilde{z} \}}}
+\newcommand{\procSubsC}{\ensuremath{P\{ \tilde{n} \leftarrow \tilde{M} \}}}
+\newcommand{\procSubsLineC}{\ensuremath{P^{'}\{ \tilde{n} \leftarrow \tilde{M} \}}}
+\newcommand{\Gdash}{\Gamma \vdash}
+\newcommand{\TCap}{\tpCCA{Cap}}
+\newcommand{\TAmb}{\tpCCA{Amb}}
+\newcommand{\TAbs}{\tpCCA{Abs}}
+\newcommand{\TW}{\tpeCCA{W}}
+\newcommand{\WxW}{\TW_{1}\times\TW_{2}}
+\newcommand{\TShh}{\tpeCCA{Shh}}
+\newcommand{\AbsProcGeneric}{x \triangleright (\tilde{y}).P}
+\newcommand{\TypedAbsProcGeneric}{x:\TAbs[\tilde{\TW}] \triangleright (\tilde{n}:\tilde{\TW}).P}%:\TCap[\tilde{\TW}]}
+\newcommand{\TypedAbsProcLineGeneric}{x:\TAbs[\tilde{\TW}] \triangleright (\tilde{n}:\tilde{\TW}).P^{'}}
+\newcommand{\dqquad}{\qquad \qquad}
+\newcommand{\co}[1]{}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					Fim dos comandos personalizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
